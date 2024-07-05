@@ -5,6 +5,10 @@ from transcribe import generate_transcript
 
 st.set_page_config(layout="wide", page_title="MediaSleuth360", page_icon="🔍")
 
+def display_summary() -> None:
+    st.subheader("Media Summary")
+    st.write(generate_summary(file))
+
 if not ('file' in st.session_state and 'type' in st.session_state):
     # Welcome message
     st.html("<center><h1>Welcome to MediaSleuth360</h1></center>")
@@ -41,7 +45,7 @@ else:
             </div>""")
 
     # Create two columns
-    left_column, right_column = st.columns((5,4))
+    left_column, right_column = st.columns((4,2))
 
     # Left column - Media player
     with left_column:
@@ -52,8 +56,8 @@ else:
             st.audio(file, start_time=start_time)
 
         # Media summary
-        st.subheader("Media Summary")
-        st.write(generate_summary(file))
+        if file.type.startswith("audio"):
+            display_summary()
 
     # Right column - Chatbox
     with right_column:
@@ -93,3 +97,7 @@ Note: If the prompt is not relevent to the media just reply with 'your question 
             with chat_container:
                 with st.chat_message("assistant"):
                     st.markdown(response)
+
+    # Media summary
+    if file.type.startswith("video"):
+        display_summary()
