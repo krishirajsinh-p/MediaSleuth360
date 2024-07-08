@@ -15,6 +15,6 @@ def generate_response(prompt: str, system: str) -> str:
                 "content": prompt
             }
         ],
-        model="llama3-70b-8192"
+        model="llama3-8b-8192"
     )
     return response.choices[0].message.content
