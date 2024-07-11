@@ -40,6 +40,7 @@ def generate_raw(file, filetype):
     )
     
     # Remove the temporary audio file
-    os.remove(file[0])
+    if filetype.startswith('video/'):
+        os.remove(file[0])
 
     return raw
