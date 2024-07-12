@@ -20,7 +20,8 @@ start_time - end_time: Topic 3 summary.
 
 Note: Ensure that the summary is concise and focuses on the main points. \
 Strictly adhere to the format and do not include any additional information \
-or commentary. Do not include the start and end tags in the summary itself.
+or commentary. Summary timestamps cant exceed total duration of the {filetype}. \
+Do not include the start and end tags in the summary itself.
 """
 
     user_prompt = f"""Generate a structured summary from the {filetype} \
