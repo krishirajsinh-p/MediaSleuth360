@@ -68,7 +68,9 @@ therefore they can be inaccurate. Double verify important info.
 
         # initialize st.session_state.messages
         if 'messages' not in st.session_state:
-            st.session_state.messages = []
+            st.session_state.messages = [
+                {"role": "assistant", "content": "Hello! I am Al your AI assistant for media analysis."}
+            ]
 
         # Display chat messages from history on app rerun
         with chat_container:
@@ -86,7 +88,7 @@ therefore they can be inaccurate. Double verify important info.
                     st.markdown(prompt)
 
             transcript = generate_transcript(file, file.type)
-            system_prompt = f"""You are the AI assistant for media analysis. \
+            system_prompt = f"""You are Al an AI assistant for media analysis. \
 You will assist users with queries about the uploaded {file.type} file. \
 Your task is to provide relevant and concise information. Users may ask questions like:
 
