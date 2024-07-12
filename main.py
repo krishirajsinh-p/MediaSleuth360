@@ -33,13 +33,11 @@ if not ('file' in st.session_state and 'type' in st.session_state):
     if file:
         if file.type.startswith("video") or file.type.startswith("audio"):
             st.session_state.type = file.type
-            st.session_state.start_time = 0
             st.rerun()
         else:
             st.error("Please upload a video or audio file.")
 else:
     file = st.session_state.file
-    start_time = st.session_state.start_time
 
     st.html("""<div style="background-color: #ffcccc; padding: 10px; border-radius: 5px; text-align: center;">
                 <span style="color: red; font-weight: bold;">
@@ -55,9 +53,9 @@ therefore they can be inaccurate. Double verify important info.
     with left_column:
         # Display media file
         if file.type.startswith("video"):
-            st.video(file, start_time=start_time)
+            st.video(file)
         else:
-            st.audio(file, start_time=start_time)
+            st.audio(file)
 
         # Media summary
         if file.type.startswith("audio"):
