@@ -17,4 +17,8 @@ def generate_response(prompt: str, system: str) -> str:
         ],
         model="llama3-8b-8192"
     )
-    return response.choices[0].message.content
+    # if error in response then display error message
+    if "error" in response:
+        return f"""[ERROR {response["error"]["type"]}]: {response["error"]["message"]}"""
+    else:
+        return response.choices[0].message.content
