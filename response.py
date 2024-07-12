@@ -15,7 +15,9 @@ def generate_response(prompt: str, system: str) -> str:
                 "content": prompt
             }
         ],
-        model="llama3-8b-8192"
+        model="llama3-8b-8192",
+        temperature=0.1,
+        top_p=0.95,
     )
     # if error in response then display error message
     if "error" in response:
