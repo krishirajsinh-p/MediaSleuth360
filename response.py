@@ -33,7 +33,29 @@ def generate_response(system: str, prompt: str) -> str:
         return response.choices[0].message.content
     except Exception as e:
         try:
-            response = model.generate_content([system, prompt])
+            safe = [
+                {
+                    "category": "HARM_CATEGORY_DANGEROUS",
+                    "threshold": "BLOCK_NONE",
+                },
+                {
+                    "category": "HARM_CATEGORY_HARASSMENT",
+                    "threshold": "BLOCK_NONE",
+                },
+                {
+                    "category": "HARM_CATEGORY_HATE_SPEECH",
+                    "threshold": "BLOCK_NONE",
+                },
+                {
+                    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+                    "threshold": "BLOCK_NONE",
+                },
+                {
+                    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+                    "threshold": "BLOCK_NONE",
+                },
+            ]
+            response = model.generate_content([system, prompt], safety_settings=safe)
             return response.text
         except Exception as e:
             return f"An error occurred: {e}"
