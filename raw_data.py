@@ -3,10 +3,13 @@ from groq import Groq
 from moviepy.editor import VideoFileClip
 import tempfile
 import os
+from pydub import AudioSegment
+from io import BytesIO
 
 client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
-def extract_audio(file):
+def extract_audio(file) -> tuple:
+    # Save the uploaded video file as a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
         temp_video.write(file.getbuffer())
         temp_video_path = temp_video.name
@@ -26,20 +29,75 @@ def extract_audio(file):
     
     return (temp_audio_path, audio_bytes)
 
+def split_audio(file, chunk_duration_minutes: int) -> list:
+    # Read the content of the uploaded file as bytes and Convert them to a BytesIO object
+    audio = AudioSegment.from_file(BytesIO(file.getvalue()))
+    chunk_duration_ms = chunk_duration_minutes * 60 * 1000
+
+    chunks = []
+    # Split the audio into chunks of the specified duration
+    for i, chunk in enumerate(audio[::chunk_duration_ms]):
+        chunk_name = f"chunk_{i}.mp3"
+        chunk.export(chunk_name, format="mp3")
+        chunks.append(chunk_name)
+
+    return chunks
+
+def adjust_timestamps(chunk, time_offset: int):
+    for segment in chunk.segments:
+        segment['start'] += time_offset
+        segment['end'] += time_offset
+    return chunk
+
 @st.cache_data()
 def generate_raw(file, filetype):
     # If the file is a video, convert it to audio first
     if filetype.startswith('video/'):
         file = extract_audio(file)
+        file_size = len(file[1]) / (1024 ** 2)
+    else:
+        file_size = file.size / (1024 ** 2)
 
-    # Generate the raw data
-    raw = client.audio.transcriptions.create(
-        file=file,
-        model="whisper-large-v3",
-        response_format="verbose_json"
-    )
-    
-    # Remove the temporary audio file
+    if file_size < 25.0:
+        # Generate the raw data
+        try:
+            raw = client.audio.transcriptions.create(
+                file=file,
+                model="whisper-large-v3",
+                response_format="verbose_json"
+            )
+        except Exception as e:
+            return f"An error occurred: {e}"
+    else:
+        # Split the audio into chunks
+        chunks = split_audio(file, chunk_duration_minutes=20)
+        
+        raw = []
+        # Transcribe the remaining chunks with the previous transcription as a prompt and start time
+        for i in range(0, len(chunks)):
+            if i > 0:
+                prompt = " ".join([segment['text'] for segment in raw[-1].segments[-2:]])
+            else:
+                prompt = None
+            
+            try:
+                raw.append(
+                    client.audio.transcriptions.create(
+                        file=open(chunks[i], "rb"),
+                        model="whisper-large-v3",
+                        response_format="verbose_json",
+                        prompt=prompt
+                    )
+                )
+            except Exception as e:
+                return f"An error occurred: {e}"
+            finally:
+                raw[i] = adjust_timestamps(raw[i], i * 20 * 60)
+            
+            # Remove the temporary chunk files
+            os.remove(chunks[i])
+
+    # Remove the temporary audio file extracted from video
     if filetype.startswith('video/'):
         os.remove(file[0])
 
