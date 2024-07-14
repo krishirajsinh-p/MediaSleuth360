@@ -12,9 +12,9 @@ summary should include key chapters or topics discussed, each with \
 corresponding timestamps. Follow the exact format provided below:
 
 <format-start>
-start_time - end_time: Topic 1 summary.
-start_time - end_time: Topic 2 summary.
-start_time - end_time: Topic 3 summary.
+start_time - end_time: Topic 1 summary.\n
+start_time - end_time: Topic 2 summary.\n
+start_time - end_time: Topic 3 summary.\n
 ...
 <format-end>
 
