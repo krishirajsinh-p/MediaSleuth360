@@ -5,10 +5,12 @@ import tempfile
 import os
 from pydub import AudioSegment
 from io import BytesIO
+from streamlit.runtime.uploaded_file_manager import UploadedFileRec, UploadedFile
+from streamlit.proto.Common_pb2 import FileURLs as FileURLsProto
 
 client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
-def extract_audio(file) -> tuple:
+def extract_audio(file):
     # Save the uploaded video file as a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
         temp_video.write(file.getbuffer())
@@ -26,8 +28,23 @@ def extract_audio(file) -> tuple:
     # Open the converted audio file
     with open(temp_audio_path, 'rb') as audio_file:
         audio_bytes = audio_file.read()
+
+    # Remove the temporary audio file
+    os.remove(temp_audio_path)
+
+    # Create an UploadedFile object from the audio bytes
+    mock_file_urls = FileURLsProto()
+    uploaded_audio = UploadedFile(
+        record=UploadedFileRec(
+            file_id="mock_id",
+            name="audio.mp3",
+            type="audio/mpeg",
+            data=audio_bytes
+        ),
+        file_urls=mock_file_urls
+    )
     
-    return (temp_audio_path, audio_bytes)
+    return uploaded_audio
 
 def split_audio(file, chunk_duration_minutes: int) -> list:
     # Read the content of the uploaded file as bytes and Convert them to a BytesIO object
@@ -54,11 +71,8 @@ def generate_raw(file, filetype):
     # If the file is a video, convert it to audio first
     if filetype.startswith('video/'):
         file = extract_audio(file)
-        file_size = len(file[1]) / (1024 ** 2)
-    else:
-        file_size = file.size / (1024 ** 2)
 
-    if file_size < 25.0:
+    if file.size / (1024 ** 2) < 25.0:
         # Generate the raw data
         try:
             raw = client.audio.transcriptions.create(
@@ -95,9 +109,5 @@ def generate_raw(file, filetype):
             
             # Remove the temporary chunk files
             os.remove(chunks[i])
-
-    # Remove the temporary audio file extracted from video
-    if filetype.startswith('video/'):
-        os.remove(file[0])
 
     return raw
