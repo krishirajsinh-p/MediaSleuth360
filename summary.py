@@ -9,9 +9,9 @@ to create a structured summary of the {filetype}. The summary should \
 include key chapters or topics, each with corresponding timestamps. \
 Follow the exact format provided below:
 
-start_time - end_time: Topic 1 summary.
-start_time - end_time: Topic 2 summary.
-start_time - end_time: Topic 3 summary.
+start_time - end_time: Topic 1 summary.\n
+start_time - end_time: Topic 2 summary.\n
+start_time - end_time: Topic 3 summary.\n
 
 Note: Ensure the summary is concise and focuses on the main points. \
 Strictly adhere to the format and do not include any additional information \
