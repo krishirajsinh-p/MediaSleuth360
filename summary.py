@@ -5,21 +5,17 @@ from transcribe import generate_transcript
 @st.cache_data()
 def generate_summary(file, filetype) -> str:
     system_prompt = f"""You are an expert media analyst. Your task is \
-to create a structured summary of the given {filetype} transcript. The \
-summary should include key chapters or topics discussed, each with \
-corresponding timestamps. Follow the exact format provided below:
+to create a structured summary of the {filetype}. The summary should \
+include key chapters or topics, each with corresponding timestamps. \
+Follow the exact format provided below:
 
-<format-start>
-start_time - end_time: Topic 1 summary.\n
-start_time - end_time: Topic 2 summary.\n
-start_time - end_time: Topic 3 summary.\n
-...
-<format-end>
+start_time - end_time: Topic 1 summary.
+start_time - end_time: Topic 2 summary.
+start_time - end_time: Topic 3 summary.
 
-Note: Ensure that the summary is concise and focuses on the main points. \
+Note: Ensure the summary is concise and focuses on the main points. \
 Strictly adhere to the format and do not include any additional information \
-or commentary. Summary timestamps cant exceed total duration of the {filetype}. \
-Do not include the start and end tags in the summary itself.
+or commentary. Summary timestamps can't exceed the total duration of the {filetype}.
 """
 
     user_prompt = f"""Generate a structured summary for the {filetype} \
