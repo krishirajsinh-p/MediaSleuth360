@@ -26,6 +26,5 @@ def generate_transcript(file, filetype) -> str:
         transcript += f"Language: {raw_data[0].language}\n"
         transcript += f"\nTranscript:\n"
         for chunk in raw_data:
-            print(chunk)
             transcript += transcribe(chunk)
     return transcript

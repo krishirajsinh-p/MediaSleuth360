@@ -89,10 +89,9 @@ def generate_raw(file, filetype):
                         prompt=prompt
                     )
                 )
+                raw[i] = adjust_timestamps(raw[i], i * 20 * 60)
             except Exception as e:
                 return f"An error occurred: {e}"
-            finally:
-                raw[i] = adjust_timestamps(raw[i], i * 20 * 60)
             
             # Remove the temporary chunk files
             os.remove(chunks[i])
