@@ -14,12 +14,13 @@ start_time - end_time: Topic 2 summary.\n
 start_time - end_time: Topic 3 summary.\n
 
 Note: Ensure the summary is concise and focuses on the main points. \
-Strictly adhere to the format and do not include any additional information \
-or commentary. Summary timestamps can't exceed the total duration of the {filetype}.
+Strictly adhere to the format and sepreate each topic with newline and \
+do not include any additional information or commentary. Summary timestamps \
+can't exceed the total duration of the {filetype}.
 """
 
     user_prompt = f"""Generate a structured summary for the {filetype} \
 content provided below, identifying key chapters or topics discussed \
-along with their timestamps:\n\n{generate_transcript(file, filetype)}"""
+along with their timestamps:\n\n{generate_transcript(file, filetype)}\n\n"""
 
     return generate_response(system_prompt, user_prompt)
