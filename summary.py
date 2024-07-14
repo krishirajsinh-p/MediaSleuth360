@@ -4,8 +4,6 @@ from transcribe import generate_transcript
 
 @st.cache_data()
 def generate_summary(file, filetype) -> str:
-    transcript = generate_transcript(file, filetype)
-
     system_prompt = f"""You are an expert media analyst. Your task is \
 to create a structured summary of the given {filetype} transcript. The \
 summary should include key chapters or topics discussed, each with \
@@ -24,8 +22,8 @@ or commentary. Summary timestamps cant exceed total duration of the {filetype}. 
 Do not include the start and end tags in the summary itself.
 """
 
-    user_prompt = f"""Generate a structured summary from the {filetype} \
-transcript provided below, identifying key chapters or topics discussed \
-along with their timestamps:\n\n{transcript}"""
+    user_prompt = f"""Generate a structured summary for the {filetype} \
+content provided below, identifying key chapters or topics discussed \
+along with their timestamps:\n\n{generate_transcript(file, filetype)}"""
 
     return generate_response(system_prompt, user_prompt)

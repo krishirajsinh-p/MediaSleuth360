@@ -73,7 +73,10 @@ therefore they can be inaccurate. Double verify important info.
 
         system_prompt = f"""You are Al, an AI assistant for media analysis. \
 You will assist users with queries about the uploaded {file.type} file. \
-Your task is to provide relevant and concise information.
+Your task is to provide relevant and concise information. Users may ask questions like:
+- \"Can you provide timestamps for when [specific topic] is discussed?\"
+- \"What are the main topics covered in the {file.type}?\"
+- \"Give me the timestamps for key points in the {file.type}.\"
 
 Context: {generate_transcript(file, file.type)}
 
