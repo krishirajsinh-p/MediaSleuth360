@@ -19,12 +19,12 @@ def generate_transcript(file, filetype) -> str:
     if type(raw_data) is not list:
         transcript += f"Total Duration: {time.strftime('%H:%M:%S', time.gmtime(raw_data.duration))}\n"
         transcript += f"Language: {raw_data.language}\n"
-        transcript += f"\nTranscript:\n"
+        transcript += f"Transcript:\n"
         transcript += transcribe(raw_data)
     else:
         transcript += f"Total Duration: {time.strftime('%H:%M:%S', time.gmtime(raw_data[-1].segments[-1]['end']))}\n"
         transcript += f"Language: {raw_data[0].language}\n"
-        transcript += f"\nTranscript:\n"
+        transcript += f"Transcript:\n"
         for chunk in raw_data:
             transcript += transcribe(chunk)
     return transcript
