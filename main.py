@@ -1,7 +1,8 @@
 import streamlit as st
-from response import generate_response
+from response import generate_response, verify_response
 from summary import generate_summary
 from transcribe import generate_transcript
+from raw_data import generate_raw
 
 # Page configuration
 st.set_page_config(layout="wide", page_title="MediaSleuth360", page_icon="🔍")
@@ -59,6 +60,8 @@ if not ('file' in st.session_state and 'type' in st.session_state):
 else:
     file = st.session_state.file
     filetype = st.session_state.type
+    raw_data = generate_raw(file, filetype)
+    transcript = generate_transcript(file, filetype)
 
     # Sidebar
     with st.sidebar:
@@ -76,7 +79,7 @@ else:
 
         # Generate Transcription📋
         with tab2:
-            st.markdown(generate_transcript(file, filetype).split('Transcript:\n')[1].replace('\n', '<br>'), unsafe_allow_html=True)
+            st.markdown(transcript.split('Transcript:\n')[1].replace('\n', '<br>'), unsafe_allow_html=True)
 
     st.html("""<div style="background-color: #ffcccc; padding: 10px; border-radius: 5px; text-align: center;">
                 <span style="color: red; font-weight: bold;">
@@ -94,10 +97,10 @@ Users may ask questions like:
 - \"What are the main topics covered in the {filetype}?\"
 - \"Give me the timestamps for key points in the {filetype}.\"
 
-{filetype} Context: {generate_transcript(file, filetype)}
+{filetype} Context: {transcript}
 
 NOTE: Make sure if the question is not relevant to the {filetype} context \
-reply with a very short response in 10 words like 'your question is out of scope.'.
+reply with a very short response in 10 words like 'Your query is out of scope.'.
 """
 
     # initialize st.session_state.messages
@@ -129,6 +132,7 @@ reply with a very short response in 10 words like 'your question is out of scope
 
         # Generate response from AI assistant
         response = generate_response(system_prompt, prompt)
+        response = verify_response(raw_data.text, response)
 
         # Add assistant response to chat history
         st.session_state.messages.append(
