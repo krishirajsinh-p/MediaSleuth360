@@ -3,6 +3,7 @@ from response import generate_response, verify_response
 from summary import generate_summary
 from transcribe import generate_transcript, generate_subtitle_file
 from raw_data import generate_raw
+import os
 
 # Page configuration
 st.set_page_config(layout="wide", page_title="MediaSleuth360", page_icon="🔍")
@@ -148,3 +149,5 @@ reply with a very short response in 10 words like 'Your query is out of scope.'.
         # Display assistant response in chat messages
         with st.chat_message("assistant"):
             st.markdown(response)
+    
+    os.remove("media.vtt") if os.path.exists("media.vtt") else None
