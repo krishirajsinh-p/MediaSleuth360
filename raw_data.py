@@ -69,7 +69,7 @@ def adjust_timestamps(chunk, time_offset: int):
 @st.cache_data()
 def generate_raw(file, filetype):
     # If the file is a video, convert it to audio first
-    if filetype.startswith('video/'):
+    if filetype == "video":
         file = extract_audio(file)
 
     if file.size / (1024 ** 2) < 25.0:
@@ -104,10 +104,12 @@ def generate_raw(file, filetype):
                     )
                 )
                 raw[i] = adjust_timestamps(raw[i], i * 20 * 60)
+
+                # Remove the temporary chunk files
+                os.remove(chunks[i])
             except Exception as e:
+                os.remove(chunks[i])
+
                 return f"An error occurred: {e}"
-            
-            # Remove the temporary chunk files
-            os.remove(chunks[i])
 
     return raw
