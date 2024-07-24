@@ -11,7 +11,7 @@ st.set_page_config(layout="wide", page_title="MediaSleuth360", page_icon="🔍")
 css = '''
 <style>
     [data-testid="stSidebar"][aria-expanded="true"] {
-        width: 700px;
+        width: 800px;
     }
     [data-testid="stSidebar"]{
         min-width: 400px;
