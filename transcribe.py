@@ -32,3 +32,32 @@ def generate_transcript(file, filetype) -> str:
             transcript += transcribe(chunk)
 
     return transcript
+
+def generate_subtitle_file(file, filetype):
+    raw_data = generate_raw(file, filetype)
+
+    # If generate_raw returns string error, exit
+    if type(raw_data) is str:
+        return
+
+    if type(raw_data) is not list:
+        with open('media.vtt', 'w') as f:
+            f.write("WEBVTT\n\n")
+            for line in raw_data.segments:
+                start_time = time.strftime('%H:%M:%S', time.gmtime(line['start']))
+                end_time = time.strftime('%H:%M:%S', time.gmtime(line['end']))
+                f.write(f"{line['id'] + 1}\n")
+                f.write(f"{start_time}.000 --> {end_time}.000\n")
+                f.write(f"{line['text']}\n\n")
+    else:
+        i = 1
+        with open('media.vtt', 'w') as f:
+            f.write("WEBVTT\n\n")
+            for chunk in raw_data:
+                for line in chunk.segments:
+                    start_time = time.strftime('%H:%M:%S', time.gmtime(line['start']))
+                    end_time = time.strftime('%H:%M:%S', time.gmtime(line['end']))
+                    f.write(f"{i}\n")
+                    f.write(f"{start_time}.000 --> {end_time}.000\n")
+                    f.write(f"{line['text']}\n\n")
+                    i += 1

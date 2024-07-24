@@ -1,7 +1,7 @@
 import streamlit as st
 from response import generate_response, verify_response
 from summary import generate_summary
-from transcribe import generate_transcript
+from transcribe import generate_transcript, generate_subtitle_file
 from raw_data import generate_raw
 
 # Page configuration
@@ -67,7 +67,8 @@ else:
     with st.sidebar:
         # Display media file
         if filetype == "video":
-            st.video(file)
+            generate_subtitle_file(file, filetype)
+            st.video(file, subtitles="media.vtt")
         else:
             st.audio(file)
 
