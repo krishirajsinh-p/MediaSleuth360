@@ -75,11 +75,13 @@ else:
 
         # Generate Summary📋
         with tab1:
-            st.markdown(generate_summary(file, filetype))
+            with st.container():
+                st.markdown(generate_summary(file, filetype))
 
         # Generate Transcription📋
         with tab2:
-            st.markdown(transcript.split('Transcript:\n')[1].replace('\n', '<br>'), unsafe_allow_html=True)
+            with st.container():
+                st.markdown(transcript.split('Transcript:\n')[1].replace('\n', '<br>'), unsafe_allow_html=True)
 
     st.html("""<div style="background-color: #ffcccc; padding: 10px; border-radius: 5px; text-align: center;">
                 <span style="color: red; font-weight: bold;">
