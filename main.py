@@ -69,7 +69,10 @@ else:
         # Display media file
         if filetype == "video":
             generate_subtitle_file(file, filetype)
-            st.video(file, subtitles="media.vtt")
+            try:
+                st.video(file, subtitles="media.vtt")
+            except Exception as e:
+                st.video(file)
         else:
             st.audio(file)
 
