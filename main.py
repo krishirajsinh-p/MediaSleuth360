@@ -54,6 +54,8 @@ if not ('file' in st.session_state and 'type' in st.session_state):
 
     if file:
         if file.type.startswith("video") or file.type.startswith("audio"):
+            if os.path.exists("media.vtt"):
+                os.remove("media.vtt")
             st.session_state.type = file.type.split("/")[0]
             st.rerun()
         else:
@@ -155,6 +157,3 @@ You are very smart so don't just mimic what users say.\
         # Display assistant response in chat messages
         with st.chat_message("assistant"):
             st.markdown(response)
-
-if os.path.exists("media.vtt"):
-    os.remove("media.vtt")
