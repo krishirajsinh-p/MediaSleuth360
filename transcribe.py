@@ -33,7 +33,7 @@ def generate_transcript(file, filetype) -> str:
 
     return transcript
 
-def generate_subtitle_file(file, filetype):
+def generate_subtitle_file(file, filetype) -> None:
     raw_data = generate_raw(file, filetype)
 
     # If generate_raw returns string error, exit
