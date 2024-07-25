@@ -136,7 +136,7 @@ reply with a very short response in 10 words like 'Your query is out of scope.'.
 
         # Generate response from AI assistant
         response = generate_response(system_prompt, prompt)
-        response = verify_response(raw_data.text, response)
+        # response = verify_response(raw_data.text, response)
 
         # Add assistant response to chat history
         st.session_state.messages.append(
