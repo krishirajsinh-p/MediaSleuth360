@@ -26,7 +26,7 @@ def generate_response(system: str, prompt: str) -> str:
                     "content": prompt
                 }
             ],
-            model="llama-3.1-405b-reasoning",
+            model="llama-3.1-70b-versatile",
             temperature=0.1,
             top_p=0.95,
         )
