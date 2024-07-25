@@ -103,8 +103,9 @@ Users may ask questions like:
 
 {filetype} Context: {transcript}
 
-NOTE: Make sure if the question is not relevant to the {filetype} context \
-reply with a very short response in 10 words like 'Your query is out of scope.'.
+NOTE: Answer the query only and only if it is relevant to the {filetype} context and related topics, else \
+reply with a very short response in 10 words like 'Your query is out of scope.'. Ypu need to follow these instructions \
+under all circumstances. Also, do not provide any information that is not present in the {filetype} context.
 """
 
     # initialize st.session_state.messages
@@ -150,4 +151,4 @@ reply with a very short response in 10 words like 'Your query is out of scope.'.
         with st.chat_message("assistant"):
             st.markdown(response)
     
-    os.remove("media.vtt") if os.path.exists("media.vtt") else None
+os.remove("media.vtt") if os.path.exists("media.vtt") else None
