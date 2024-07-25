@@ -151,5 +151,6 @@ You need to follow these instructions under all circumstances.
         # Display assistant response in chat messages
         with st.chat_message("assistant"):
             st.markdown(response)
-    
-os.remove("media.vtt") if os.path.exists("media.vtt") else None
+
+if os.path.exists("media.vtt"):
+    os.remove("media.vtt")
