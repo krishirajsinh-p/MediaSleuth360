@@ -46,18 +46,21 @@ def extract_audio(file):
     
     return uploaded_audio
 
-def split_audio(file, chunk_duration_minutes: int) -> list:
+def split_audio(file):
     # Read the content of the uploaded file as bytes and Convert them to a BytesIO object
     audio = AudioSegment.from_file(BytesIO(file.getvalue()))
-    chunk_duration_ms = chunk_duration_minutes * 60 * 1000
 
+    duration_ms = len(audio)
+    bytes_per_ms = len(file.getvalue()) / duration_ms
+    chunk_size_ms = int(24 * 1024 * 1024 / bytes_per_ms) + 1
+    
     chunks = []
-    # Split the audio into chunks of the specified duration
-    for i, chunk in enumerate(audio[::chunk_duration_ms]):
+    # Split the audio into chunks 
+    for i, chunk in enumerate(audio[::chunk_size_ms]):
         chunk_name = f"chunk_{i}.mp3"
         chunk.export(chunk_name, format="mp3")
         chunks.append(chunk_name)
-
+    
     return chunks
 
 def adjust_timestamps(chunk, time_offset: int):
@@ -84,7 +87,7 @@ def generate_raw(file, filetype):
             return f"An error occurred: {e}"
     else:
         # Split the audio into chunks
-        chunks = split_audio(file, chunk_duration_minutes=20)
+        chunks = split_audio(file)
         
         raw = []
         # Transcribe the remaining chunks with the previous transcription as a prompt and start time
