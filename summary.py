@@ -15,6 +15,6 @@ Summary timestamps can't exceed the total duration of the {filetype}.
 
     user_prompt = f"""Generate summary for the {filetype} content provided below, \
 identify key chapters or topics discussed along with their timestamps:\
-\n\n{generate_transcript(file, filetype)}\n\n"""
+\n\n{generate_transcript(file, filetype)}"""
 
     return generate_response(system_prompt, user_prompt)
