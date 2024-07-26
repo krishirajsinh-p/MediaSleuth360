@@ -7,7 +7,7 @@
 
 ## Website 🌐
 
-For small media files(~10 mins or less) you can use https://www.mediasleuth360.streamlit.app. It uses free APIs so It may run out of free quote.
+For small media files(~10 mins or less) you can use https://mediasleuth360.streamlit.app/. It uses free APIs so It may run out of free quote.
 
 ## Features ✨
 
@@ -51,7 +51,7 @@ and then textual information
 git clone https://github.com/krishirajsinh-p/MediaSleuth360.git
 ```
 
-### Step 2: Go to project's root dir
+### Step 2: Go to project's root directory
 
 ```bash
 cd MediaSleuth360
