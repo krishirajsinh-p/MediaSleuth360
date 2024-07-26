@@ -1,4 +1,4 @@
 #!/bin/bash
 
 # Run the application
-streamlit run main.py
+streamlit run src/main.py
