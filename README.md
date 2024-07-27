@@ -5,6 +5,7 @@
     MediaSleuth360 is a web platform that leverages AI to enhance media content interaction, making it easier for users to find specific information in video or audio files.
 </div>
 
+## Demo Video 🎥
 https://github.com/user-attachments/assets/723a7660-ad6c-42bd-9ce6-d1693f3b69b9
 
 ## Website 🌐
