@@ -4,6 +4,17 @@ from transcribe import generate_transcript
 
 @st.cache_data()
 def generate_summary(file, filetype) -> str:
+    """
+    Generate a structured summary of the given file.
+
+    Args:
+        file (str): The path to the file.
+        filetype (str): The type of the file.
+
+    Returns:
+        str: The generated summary.
+
+    """
     system_prompt = f"""You are an expert media analyst. Your task is \
 to create a structured summary of the {filetype}. The summary should \
 include key chapters or topics, each with corresponding timestamps.

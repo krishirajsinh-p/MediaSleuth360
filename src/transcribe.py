@@ -3,6 +3,16 @@ from raw_data import generate_raw
 import time
 
 def transcribe(raw_data) -> str:
+    """
+    Transcribes the raw data into a formatted transcript.
+
+    Args:
+        raw_data (list or object): The raw data containing segments of text.
+
+    Returns:
+        str: A string representing the formatted transcript line.
+
+    """
     transcript=""
     for line in raw_data.segments:
         start_time = time.strftime('%H:%M:%S', time.gmtime(line['start']))
@@ -12,6 +22,17 @@ def transcribe(raw_data) -> str:
 
 @st.cache_data()
 def generate_transcript(file, filetype) -> str:
+    """
+    Generate a transcript for the given file.
+
+    Args:
+        file (UploadFile): The media input file.
+        filetype (str): The type of the input file.
+
+    Returns:
+        str: The generated transcript.
+
+    """
     raw_data = generate_raw(file, filetype)
 
     # If generate_raw returns string error, return it as is
@@ -34,6 +55,16 @@ def generate_transcript(file, filetype) -> str:
     return transcript
 
 def generate_subtitle_file(file, filetype) -> None:
+    """
+    Generate a subtitle file for the given file.
+
+    Args:
+        file (UploadFile): The media input file.
+        filetype (str): The type of the input file.
+
+    Returns:
+        None
+    """
     raw_data = generate_raw(file, filetype)
 
     # If generate_raw returns string error, exit

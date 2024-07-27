@@ -28,7 +28,12 @@ css = '''
 st.markdown(css, unsafe_allow_html=True)
 
 def display_instructions(expanded=True) -> None:
-    # Display instructions in an expanded state
+    """
+    Display instructions for using the MediaSleuth360 application.
+
+    Parameters:
+        expanded (bool): Whether to display the instructions in an expanded state. Default is True.
+    """
     st.expander(":Bold[❗Instructions]", expanded=expanded).markdown("""
     1. Upload an audio or video file in any language, make sure media file is less than 200MB.
     2. The media summary will be displayed below the media player in English Language.
@@ -37,11 +42,9 @@ def display_instructions(expanded=True) -> None:
     """)
 
 if not ('file' in st.session_state and 'type' in st.session_state):
-    # Welcome message
+    
     st.html("<center><h1>Welcome to MediaSleuth360</h1></center>")
-
     display_instructions()
-
     st.html("<h3>Upload Media File</h3>")
 
     # Upload file, only accept one file
@@ -78,12 +81,12 @@ else:
 
         tab1, tab2 = st.tabs(["Summary", "Transcription"])
 
-        # Generate Summary📋
+        # Generate Summary
         with tab1:
             with st.container(border=True, height=250):
                 st.markdown(generate_summary(file, filetype))
 
-        # Generate Transcription📋
+        # Generate Transcription
         with tab2:
             with st.container(border=True, height=250):
                 st.markdown(transcript.split('Transcript:\n')[1].replace(' - ', ' --> ').replace('\n', '<br>'), unsafe_allow_html=True)

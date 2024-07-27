@@ -11,6 +11,15 @@ from streamlit.proto.Common_pb2 import FileURLs as FileURLsProto
 client = Groq(api_key=st.secrets["GROQ_API_KEY"])
 
 def extract_audio(file):
+    """
+    Extracts audio from a video file.
+
+    Args:
+        file (BytesIO): The video file.
+
+    Returns:
+        UploadedFile: The uploaded audio file.
+    """
     # Save the uploaded video file as a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix='.mp4') as temp_video:
         temp_video.write(file.getbuffer())
@@ -46,17 +55,24 @@ def extract_audio(file):
     
     return uploaded_audio
 
-def split_audio(file):
+def split_audio(file, chunk_duration_minutes=20) -> list:
+    """
+    Split the audio file into chunks of the specified duration.
+
+    Args:
+        file (BytesIO): The uploaded audio file as a BytesIO object.
+        chunk_duration_minutes (int, optional): The duration of each chunk in minutes. Defaults to 20.
+
+    Returns:
+        list: A list of chunk names (file paths) for the split audio chunks.
+    """
     # Read the content of the uploaded file as bytes and Convert them to a BytesIO object
     audio = AudioSegment.from_file(BytesIO(file.getvalue()))
-
-    duration_ms = len(audio)
-    bytes_per_ms = len(file.getvalue()) / duration_ms
-    chunk_size_ms = int(24 * 1024 * 1024 / bytes_per_ms) + 1
+    chunk_duration_ms = chunk_duration_minutes * 60 * 1000
     
     chunks = []
-    # Split the audio into chunks 
-    for i, chunk in enumerate(audio[::chunk_size_ms]):
+    # Split the audio into chunks of the specified duration
+    for i, chunk in enumerate(audio[::chunk_duration_ms]):
         chunk_name = f"chunk_{i}.mp3"
         chunk.export(chunk_name, format="mp3")
         chunks.append(chunk_name)
@@ -64,6 +80,16 @@ def split_audio(file):
     return chunks
 
 def adjust_timestamps(chunk, time_offset: int):
+    """
+    Adjusts the timestamps of a chunk of transcribed audio.
+
+    Args:
+        chunk (Chunk): The chunk of transcribed audio.
+        time_offset (int): The time offset to be added to the timestamps.
+
+    Returns:
+        Chunk: The adjusted chunk of transcribed audio.
+    """
     for segment in chunk.segments:
         segment['start'] += time_offset
         segment['end'] += time_offset
@@ -71,6 +97,16 @@ def adjust_timestamps(chunk, time_offset: int):
 
 @st.cache_data()
 def generate_raw(file, filetype):
+    """
+    Generates raw data from an audio or video file.
+
+    Args:
+        file (BytesIO): The audio or video file.
+        filetype (str): The type of the file ("audio" or "video").
+
+    Returns:
+        list: List of raw transcriptions.
+    """
     # If the file is a video, convert it to audio first
     if filetype == "video":
         file = extract_audio(file)
