@@ -2,12 +2,12 @@
     <h1>
         🔎 MediaSleuth360
     </h1>
-    MediaSleuth360 is a web platform that leverages AI for enhancing media content interaction, making it easier for users to find specific information in video or audio files.
+    MediaSleuth360 is a web platform that leverages AI to enhance media content interaction, making it easier for users to find specific information in video or audio files.
 </div>
 
 ## Website 🌐
 
-For small media files(~10 mins or less) you can use https://mediasleuth360.streamlit.app/. It uses free APIs so It may run out of free quote.
+For small media files(~10 mins or less) you can use https://mediasleuth360.streamlit.app/. It uses free APIs so It may run out of free quote quickly.
 
 ## Features ✨
 
@@ -18,6 +18,7 @@ For small media files(~10 mins or less) you can use https://mediasleuth360.strea
 - **Interactive Chatbot**: An interactive chatbox allows users to engage with the AI to query specific topics within the media content.
 - **Media Navigation**: Users can ask AI to search for specific keywords/topics/bits within the media.
 - **Multilingual Media Analysis**: Supports analysis of media content in multiple languages, enhancing accessibility and usability.
+- **Caching**: The smart caching media content will make processing much faster when user uploads the same file.
 
 ## System Architecture 💻🏗️
 
@@ -65,7 +66,7 @@ bash install.sh
 
 ### Step 4: Add API keys
 
-Place your [Groq](https://groq.com/) and [Google](https://aistudio.google.com/app/apikey) API keys in ./streamlit/secrets.toml
+Place your [Groq](https://groq.com/) and [Google](https://aistudio.google.com/app/apikey) API keys in ./.streamlit/secrets.toml
 
 ### Step 5: Run program and access the platform
 
@@ -85,7 +86,7 @@ open in browser http://localhost:8501
 - **Reliance on Speech Quality**: The effectiveness of the system heavily depends on the quality of the input speech.
 - **File Size**: There is a 200MB media file size limit due to Streamlit constraints.
 - **Language Support**: It may not work **as effectively** for languages other than English.
-- **No Memory**: The AI assistant don't have conversational memory.
+- **No Memory**: The AI assistant don't have conversational memory because of the limited context window of the LLM model(also to minimize security concerns and resource usage).
 
 ## License
 
