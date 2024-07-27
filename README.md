@@ -2,7 +2,7 @@
     <h1>
         🔎 MediaSleuth360
     </h1>
-    MediaSleuth360 is a web platform that leverages AI to enhance media content interaction, making it easier for users to find specific information in video or audio files.
+    MediaSleuth360 aims to revolutionize how users interact with media content by leveraging advanced AI technologies. The platform can be the go-to tool for extracting, understanding, and navigating information from video and audio files, enhancing productivity and accessibility for users across various domains, including education, content creation, and entertainment.
 </div>
 
 ## Demo Video 🎥
@@ -22,6 +22,7 @@ For small media files(~10 mins or less) you can use https://mediasleuth360.strea
 - **Media Navigation**: Users can ask AI to search for specific keywords/topics/bits within the media.
 - **Multilingual Media Analysis**: Supports analysis of media content in multiple languages, enhancing accessibility and usability.
 - **Caching**: The smart caching media content will make processing much faster when user uploads the same file.
+- **CI/CD**: This is developed in Python with Streamlit which by design enables CI and CD during development and testing.
 
 ## System Architecture 💻🏗️
 
