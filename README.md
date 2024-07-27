@@ -26,7 +26,7 @@ For small media files(~10 mins or less) you can use https://mediasleuth360.strea
 
 ## System Architecture 💻🏗️
 
-flowchart diagram will go here
+![System_Workflow](https://github.com/user-attachments/assets/e4bdde2b-45b8-4049-ab44-97ae000b5ec1)
 
 and then textual information
 
