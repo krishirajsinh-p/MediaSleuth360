@@ -5,6 +5,8 @@
     MediaSleuth360 is a web platform that leverages AI to enhance media content interaction, making it easier for users to find specific information in video or audio files.
 </div>
 
+https://mediasleuth360.infinityfreeapp.com/demo-video.mp4
+
 ## Website 🌐
 
 For small media files(~10 mins or less) you can use https://mediasleuth360.streamlit.app/. It uses free APIs so It may run out of free quote quickly.
