@@ -24,11 +24,18 @@ For small media files(~10 mins or less) you can use https://mediasleuth360.strea
 - **Caching**: The smart caching media content will make processing much faster when user uploads the same file.
 - **CI/CD**: This is developed in Python with Streamlit which by design enables CI and CD during development and testing.
 
-## System Architecture 💻🏗️
+## System Workflow 💻🏗️
 
 ![System_Workflow](https://github.com/user-attachments/assets/e4bdde2b-45b8-4049-ab44-97ae000b5ec1)
 
-and then textual information
+1.	User Uploads Media: The user uploads an audio or video file through the Streamlit interface.
+2.	Processing:
+    - The main.py script calls functions from raw_data.py to extract raw data from the media.
+    - transcribe.py is used to generate transcripts and subtitle files.
+    - summary.py provides a summary of the media content.
+    - response.py generates responses to user queries about the media.
+3.	User Interaction: The application displays the media player, transcript, and summary. Users can ask questions about the media content, and the application responds using the generate_chat_response function.
+
 
 ## Tools 🛠
 
