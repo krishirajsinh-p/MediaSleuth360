@@ -5,9 +5,6 @@
     MediaSleuth360 aims to revolutionize how users interact with media content by leveraging advanced AI technologies. The platform can be the go-to tool for extracting, understanding, and navigating information from video and audio files, enhancing productivity and accessibility for users across various domains, including education, content creation, and entertainment.
 </div>
 
-## Demo Video 🎥
-https://github.com/user-attachments/assets/723a7660-ad6c-42bd-9ce6-d1693f3b69b9
-
 ## Website 🌐
 
 > [!NOTE]
@@ -15,17 +12,8 @@ https://github.com/user-attachments/assets/723a7660-ad6c-42bd-9ce6-d1693f3b69b9
 
 For small media files(~10 mins or less) you can use https://mediasleuth360.infinityfreeapp.com/. For larger files follow setup instructions given below and run locally with your API keys.
 
-## Features ✨
-
-- **Media Support**: Support almost any video or audio file format.
-- **Time Stamping**: Automatically generates a transcript for the media.
-- **Subtitles Generation**: Automatically adds subtitles to the video.
-- **Summarization**: Provides a concise structered summary of the media content with timestamps for broader picture.
-- **Interactive Chatbot**: An interactive chatbox allows users to engage with the AI to query specific topics within the media content.
-- **Media Navigation**: Users can ask AI to search for specific keywords/topics/bits within the media.
-- **Multilingual Media Analysis**: Supports analysis of media content in multiple languages, enhancing accessibility and usability.
-- **Caching**: The smart caching media content will make processing much faster when user uploads the same file.
-- **CI/CD**: This is developed in Python with Streamlit which by design enables CI and CD during development and testing.
+## Demo Video 🎥
+https://github.com/user-attachments/assets/723a7660-ad6c-42bd-9ce6-d1693f3b69b9
 
 ## System Workflow 💻🏗️
 
@@ -39,6 +27,17 @@ For small media files(~10 mins or less) you can use https://mediasleuth360.infin
     - response.py generates responses to user queries about the media.
 3.	**User Interaction**: The application displays the media player, transcript, and summary. Users can ask questions about the media content, and the application responds using the generate_chat_response function.
 
+## Features ✨
+
+- **Media Support**: Support almost any video or audio file format.
+- **Time Stamping**: Automatically generates a transcript for the media.
+- **Subtitles Generation**: Automatically adds subtitles to the video.
+- **Summarization**: Provides a concise structered summary of the media content with timestamps for broader picture.
+- **Interactive Chatbot**: An interactive chatbox allows users to engage with the AI to query specific topics within the media content.
+- **Media Navigation**: Users can ask AI to search for specific keywords/topics/bits within the media.
+- **Multilingual Media Analysis**: Supports analysis of media content in multiple languages, enhancing accessibility and usability.
+- **Caching**: The smart caching media content will make processing much faster when user uploads the same file.
+- **CI/CD**: This is developed in Python with Streamlit which by design enables CI and CD during development and testing.
 
 ## Tools 🛠
 
