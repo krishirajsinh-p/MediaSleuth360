@@ -10,7 +10,10 @@ https://github.com/user-attachments/assets/723a7660-ad6c-42bd-9ce6-d1693f3b69b9
 
 ## Website 🌐
 
-For small media files(~10 mins or less) you can use https://mediasleuth360.streamlit.app/. It uses free APIs so It may run out of free quote quickly.
+> [!NOTE]
+> It uses free APIs so It may run out of free quote quickly.
+
+For small media files(~10 mins or less) you can use https://mediasleuth360.infinityfreeapp.com/. For larger files follow setup instructions given below and run locally with your API keys.
 
 ## Features ✨
 
@@ -28,13 +31,13 @@ For small media files(~10 mins or less) you can use https://mediasleuth360.strea
 
 ![System_Workflow](https://github.com/user-attachments/assets/e4bdde2b-45b8-4049-ab44-97ae000b5ec1)
 
-1.	User Uploads Media: The user uploads an audio or video file through the Streamlit interface.
-2.	Processing:
+1.	**User Uploads Media**: The user uploads an audio or video file through the Streamlit interface.
+2.	**Processing**:
     - The main.py script calls functions from raw_data.py to extract raw data from the media.
     - transcribe.py is used to generate transcripts and subtitle files.
     - summary.py provides a summary of the media content.
     - response.py generates responses to user queries about the media.
-3.	User Interaction: The application displays the media player, transcript, and summary. Users can ask questions about the media content, and the application responds using the generate_chat_response function.
+3.	**User Interaction**: The application displays the media player, transcript, and summary. Users can ask questions about the media content, and the application responds using the generate_chat_response function.
 
 
 ## Tools 🛠
