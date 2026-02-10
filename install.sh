@@ -3,8 +3,15 @@
 # Install the required packages
 cat packages.txt | xargs sudo apt install -y
 
-# Install the required Python packages
-pip install -r requirements.txt
+# Create virtual environment and install Python dependencies
+if [ ! -d ".venv" ]; then
+    echo "Creating virtual environment..."
+    python3 -m venv .venv
+fi
+
+./.venv/bin/pip install --upgrade pip
+./.venv/bin/pip install -r requirements.txt
+source .venv/bin/activate
 
 # Make secrets file
 mkdir -p ./.streamlit
